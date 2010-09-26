@@ -36,10 +36,10 @@ fi
 #
 
 uploadsdir=/srv/skgb.www/uploads
-backupfile=uploads.tar.bz2
+backupfile=skgb_uploads.tar.bz2
 
 if cd $bak ; then
-	tar -cf "${uploadsdir}/*" | bzip2 -c > "$backupfile"
+	tar -c ${uploadsdir}/* | bzip2 -c > "$backupfile"
 fi
 
 #
