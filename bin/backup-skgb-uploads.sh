@@ -18,7 +18,8 @@ if [ -x /usr/bin/lockfile-create ] ; then
     if [ $? -ne 0 ] ; then
 	cat <<EOF
 
-Unable to run /etc/cron.daily/backup-skgb because lockfile $LOCKFILE
+Unable to run /etc/cron.daily/backup-skgb-uploads because lockfile
+$LOCKFILE
 acquisition failed. This probably means that the previous day's
 instance is still running. Please check and correct if necessary.
 
