@@ -97,7 +97,8 @@ ln -vs "htaccess_${HOST}.conf" .htaccess
 ln -vs "wp-config_${HOST}.php" wp-config.php
 
 ln -vs extensions wp-content
-ln -vs ../uploads extensions/uploads
+ln -vs '../uploads' extensions/uploads
+ln -vs '../wordpress/wp-content/languages' extensions/languages
 
 
 printf "\nFix File System Flags...\n"
