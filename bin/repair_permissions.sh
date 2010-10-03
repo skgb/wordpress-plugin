@@ -41,7 +41,7 @@ if [[ $VERBOSE == "-v" ]] ; then printf "\nSetting default owner and group...\n"
 sudo chown $VERBOSE --no-dereference -R www-run:www-data .
 
 if [[ $VERBOSE == "-v" ]] ; then printf "\nSetting default permissions...\n" ; fi
-sudo chmod $VERBOSE -R u+rwX,g+rwX,o-rwx .	
+sudo chmod $VERBOSE -R u+rwX,g+rwX,o-rwx .
 
 
 # special flags
@@ -62,9 +62,7 @@ sudo chown $VERBOSE --no-dereference -R "`whoami`:skgb-web" \
 	extensions/themes/skgb5
 
 if [[ $VERBOSE == "-v" ]] ; then printf "\nSetting special permissions for helper script files...\n" ; fi
-sudo chmod $VERBOSE 0770 \
-	extensions/plugins/skgb-web/bin/install_new.sh \
-	extensions/plugins/skgb-web/bin/repair_permissions.sh
+sudo chmod $VERBOSE 0770 extensions/plugins/skgb-web/bin/*.sh
 
 if [[ $VERBOSE == "-v" ]] ; then printf "\nSetting special permissions for config files...\n" ; fi
 sudo chmod $VERBOSE 0460 .htaccess htaccess*.conf wp-config*.php index.php
