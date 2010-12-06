@@ -10,7 +10,7 @@
 Plugin Name: SKGB-Web Plugin
 Description: Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 Author: Arne Johannessen, SKGB
-Version: 0.2.2
+Version: 0.2.3
 P_lugin URI: http://www.skgb.de/
 A_uthor URI: http://www.skgb.de/
 */
@@ -75,6 +75,9 @@ add_filter('the_excerpt', 'SB_highlight_searchterms');
 // used Dashboard code example 'dashboard-google-pagerank' by Weston Deboer
 function SB_wp_dashboard_test() {
 	echo '<A HREF="//intern.skgb.de/digest/">SKGB-intern Hauptmenü</A>';
+//	echo "<PRE>\n\n";
+//	print_r(wp_upload_dir());
+//	echo "</PRE>";
 }
 function SB_wp_dashboard_setup () {
 	wp_add_dashboard_widget('SB_wp_dashboard_test', 'SKGB-intern', 'SB_wp_dashboard_test');
