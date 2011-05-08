@@ -33,6 +33,11 @@ sudo mv "$TARFILE" "archive.tar"
 sudo gzip "archive.tar" &
 
 
+printf "\n\nSetting up temp 503 status...\n"
+
+echo "Redirect 503 /index.php" > .htaccess
+
+
 printf "\nExporting skgb/skgb-web/trunk HEAD from Subversion...\n"
 
 svn export "file:///usr/local/svnreps/skgb/skgb-web/trunk" . --force --native-eol LF
@@ -93,6 +98,10 @@ sudo chown --no-dereference -R www-run:www-data uploads
 
 printf "\nLinking...\n"
 
+
+printf "\n\nSetting up temp 503 status...\n"
+
+rm -f .htaccess
 ln -vs "htaccess_${HOST}.conf" .htaccess
 ln -vs "wp-config_${HOST}.php" wp-config.php
 
