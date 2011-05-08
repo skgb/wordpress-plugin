@@ -45,6 +45,7 @@ svn export "file:///usr/local/svnreps/open/wp-plugins/ajax-comment-preview/trunk
 svn export "file:///usr/local/svnreps/open/wp-plugins/bad-behavior/trunk" extensions/plugins --force --native-eol LF
 svn export "file:///usr/local/svnreps/open/wp-plugins/bhcalendarchives/trunk" extensions/plugins --force --native-eol LF
 svn export "file:///usr/local/svnreps/open/wp-plugins/remove-generator-meta-tag/trunk" extensions/plugins --force --native-eol LF
+svn export "file:///usr/local/svnreps/open/wp-plugins/search-meter/trunk" extensions/plugins --force --native-eol LF
 
 
 printf "\nInstalling other Plug-ins...\n"
@@ -62,7 +63,6 @@ get_plugin()
 
 get_plugin "pjw-page-excerpt.0.02.zip" "$PLUGINREP"
 #get_plugin "raw-html.1.3.zip" "$PLUGINREP"
-get_plugin "search-meter.2.7.3.zip" "$PLUGINREP"
 get_plugin "seemore.1.1.zip" "$PLUGINREP"
 get_plugin "wp-db-backup.2.2.3.zip" "$PLUGINREP"
 
