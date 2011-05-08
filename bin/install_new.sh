@@ -99,8 +99,6 @@ sudo chown --no-dereference -R www-run:www-data uploads
 printf "\nLinking...\n"
 
 
-printf "\n\nSetting up temp 503 status...\n"
-
 rm -f .htaccess
 ln -vs "htaccess_${HOST}.conf" .htaccess
 ln -vs "wp-config_${HOST}.php" wp-config.php
