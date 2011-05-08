@@ -64,7 +64,7 @@ get_plugin "pjw-page-excerpt.0.02.zip" "$PLUGINREP"
 #get_plugin "raw-html.1.3.zip" "$PLUGINREP"
 get_plugin "search-meter.2.7.3.zip" "$PLUGINREP"
 get_plugin "seemore.1.1.zip" "$PLUGINREP"
-get_plugin "wp-db-backup.2.2.2.zip" "$PLUGINREP"
+get_plugin "wp-db-backup.2.2.3.zip" "$PLUGINREP"
 
 #curl "${PLUGINREP}w3-total-cache.0.9.1.3.zip" -o "extensions/plugins/w3-total-cache.0.9.1.3.zip"
 
