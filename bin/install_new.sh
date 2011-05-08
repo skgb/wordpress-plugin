@@ -28,20 +28,20 @@ rm -v "archive.tar" "archive.tar.gz"
 SCRIPTNAME=`basename "$0" '.sh'`
 TARFILE=`mktemp -t "${scriptname}.XXXXXX"`
 sudo tar -cf "$TARFILE" .???* *
-sudo rm -vRf .???* *
+sudo rm -vRf .???*
+echo "Redirect 503 /index.php" > .htaccess
+echo "Temp 503 HTTP status enabled."
+sudo rm -vRf *
 sudo mv "$TARFILE" "archive.tar"
 sudo gzip "archive.tar" &
-
-
-printf "\n\nSetting up temp 503 status...\n"
-
-echo "Redirect 503 /index.php" > .htaccess
 
 
 printf "\nExporting skgb/skgb-web/trunk HEAD from Subversion...\n"
 
 svn export "file:///usr/local/svnreps/skgb/skgb-web/trunk" . --force --native-eol LF
 mkdir --mode=2750 -p extensions/upgrade
+echo "ErrorDocument 503 /extensions/themes/skgb5/error/503.php" >> .htaccess
+echo "Temp 503 HTTP status error page changed to link to skgb5 theme."
 
 
 printf "\nExporting open/wp-plugins/... HEAD from Subversion...\n"
