@@ -5,7 +5,7 @@
 WORDPRESS_DEFAULT="http://wordpress.org/wordpress-3.1.4.tar.gz"
 PLUGINREP_DEFAULT="http://downloads.wordpress.org/plugin/"
 
-if [[ $# -lt 1 || $# -gt 4 ]] ; then
+if [[ $# -lt 1 || $# -gt 4 || ($1 != "www" && $1 != "dev") ]] ; then
 	echo "Usage: `basename $0` host [uploads [wordpress [pluginrep]]]"
 	echo "  host: 'www' or 'dev'"
 	echo "  uploads: path to gzip'ed tar file with contents of the uploads directory"
