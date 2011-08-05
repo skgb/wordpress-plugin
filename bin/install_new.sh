@@ -1,15 +1,19 @@
 #! /bin/bash
 # $Id$
 
+#WORDPRESS_DEFAULT="http://wordpress.org/latest.tar.gz"  # tay only runs PHP 5.2.0, so WP updates stop at 3.1.4
+WORDPRESS_DEFAULT="http://wordpress.org/wordpress-3.1.4.tar.gz"
+PLUGINREP_DEFAULT="http://downloads.wordpress.org/plugin/"
+
 if [[ $# -lt 1 || $# -gt 4 ]] ; then
 	echo "Usage: `basename $0` host [uploads [wordpress [pluginrep]]]"
 	echo "  host: 'www' or 'dev'"
 	echo "  uploads: path to gzip'ed tar file with contents of the uploads directory"
 	echo "    (leave off to create an empty uploads directory)"
 	echo "  wordpress: URI of gzip'ed tar file with the wordpress directory"
-	echo "    (leave off to use default 'http://wordpress.org/latest.tar.gz')"
+	echo "    (leave off to use default '$WORDPRESS_DEFAULT')"
 	echo "  pluginrep: URI of directory with zip'ed plugin archives"
-	echo "    (leave off to use default 'http://downloads.wordpress.org/plugin/')"
+	echo "    (leave off to use default '$PLUGINREP_DEFAULT')"
 	printf "\n*****  WARNING  *****\n\n"
 	echo "Running this script will completely replace all contents of the current"
 	echo "directory (`pwd`). This action is not undo-able."
@@ -56,7 +60,7 @@ svn export "file:///usr/local/svnreps/open/wp-plugins/search-meter/trunk" extens
 printf "\nInstalling other Plug-ins...\n"
 
 if [[ "$PLUGINREP" == "" ]] ; then
-	PLUGINREP="http://downloads.wordpress.org/plugin/"
+	PLUGINREP="$PLUGINREP_DEFAULT"
 fi
 
 get_plugin()
@@ -67,10 +71,11 @@ get_plugin()
 }
 
 get_plugin "pjw-page-excerpt.0.02.zip" "$PLUGINREP"
-#get_plugin "raw-html.1.3.zip" "$PLUGINREP"
+#get_plugin "raw-html.1.3.zip" "$PLUGINREP"  # we now use markdown instead, which allows much the same
 get_plugin "seemore.1.1.zip" "$PLUGINREP"
 get_plugin "wp-db-backup.2.2.3.zip" "$PLUGINREP"
 
+# leave the caching plugin out, just download the archive for manual installation
 #curl "${PLUGINREP}w3-total-cache.0.9.1.3.zip" -o "extensions/plugins/w3-total-cache.0.9.1.3.zip"
 
 get_plugin 'php-markdown-extra-1.2.4.zip' 'http://michelf.com/docs/projets/'
@@ -81,7 +86,7 @@ rm -Rf 'extensions/plugins/PHP Markdown Extra 1.2.4'
 printf "\nInstalling Wordpress...\n"
 
 if [[ "$WORDPRESS" == "" ]] ; then
-	WORDPRESS="http://wordpress.org/latest.tar.gz"
+	WORDPRESS="$WORDPRESS_DEFAULT"
 fi
 curl "$WORDPRESS" | gunzip | tar -vx
 
