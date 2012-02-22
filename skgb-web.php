@@ -74,13 +74,14 @@ add_filter('the_excerpt', 'SB_highlight_searchterms');
 
 // used Dashboard code example 'dashboard-google-pagerank' by Weston Deboer
 function SB_wp_dashboard_test() {
-	echo '<A HREF="//intern.skgb.de/digest/">SKGB-intern Hauptmenü</A>';
+	echo '<P>Die Textbearbeitung erfolgt in <A HREF="http://de.wikipedia.org/wiki/Markdown#Auszeichnungsbeispiele">Markdown</A>-Syntax (<A HREF="http://daringfireball.net/projects/markdown/syntax" HREFLANG="en">Referenz</A>).';
+	echo '<P>→ <A HREF="//intern.skgb.de/digest/">SKGB-intern Hauptmenü</A>';
 //	echo "<PRE>\n\n";
 //	print_r(wp_upload_dir());
 //	echo "</PRE>";
 }
 function SB_wp_dashboard_setup () {
-	wp_add_dashboard_widget('SB_wp_dashboard_test', 'SKGB-intern', 'SB_wp_dashboard_test');
+	wp_add_dashboard_widget('SB_wp_dashboard_test', 'SKGB', 'SB_wp_dashboard_test');
 }
 add_action('wp_dashboard_setup', 'SB_wp_dashboard_setup');
 
