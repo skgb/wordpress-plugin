@@ -2,7 +2,7 @@
 Donate link: http://example.com/
 Tags: comments, spam
 Requires at least: 2.8.4
-Tested up to: 3.0.1
+Tested up to: 3.4.1
 
 Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 
@@ -16,10 +16,15 @@ Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 
 Eigentlich braucht man nur die Dateien zu kopieren. Es ist zu beachten, dass dieses Plugin zur gemeinsamen Verwendung mit dem Theme `skgb5` gedacht ist.
 
-Das Skript `bin/install_new.sh` (welches ein Teil dieses Plugins ist) richtet ein Verzeichnis komplett fertig zum Betrieb von Wordpress ein und installiert dabei auch dieses Plugin frisch aus Subversion.
-
 
 == Changelog ==
+
+= 0.3.2 =
+* Stacktrace für deprecated function calls in Modulen Dritter
+
+= 0.3.1 =
+
+= 0.3 =
 
 = 0.2.2 =
 * moved plugin file to directory and added installation scripts in bin

@@ -10,7 +10,7 @@
 Plugin Name: SKGB-Web Plugin
 Description: Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 Author: Arne Johannessen, SKGB
-Version: 0.3.1
+Version: 0.3.2
 P_lugin URI: http://www.skgb.de/
 A_uthor URI: http://www.skgb.de/
 */
@@ -150,5 +150,44 @@ function SB_add_admin_pages() {
 //add_action('admin_head', 'SB_stats_css');
 add_action('admin_menu', 'SB_add_admin_pages');
 */
+
+
+// debugging aid: stacktrace for deprecated functions
+if (defined('WP_DEBUG') && WP_DEBUG) {
+	function SB_stacktrace_on_deprecated_function ($trigger_error) {
+		if ($trigger_error) {
+			// print a stacktrace
+			// (it's impossible to find the culprit without one; that WP doesn't handle this by itself is disgraceful I think)
+			
+			// prepare stacktrace (the PHP default is hardly unusable; another disgrace)
+			$clipBacktrace = debug_backtrace();
+			$clipBacktrace[] = array('function' => '&lt;init>');
+			array_unshift($clipBacktrace, array('function' => __FUNCTION__, 'file' => __FILE__, 'line' => __LINE__));
+			
+			// if we know this WP version's call stack structure, we shave off parts we don't need
+			global $wp_version;
+			$clipTraceIndexBegin = ('3.4' == preg_replace('/^([0-9]+\.[0-9]+).*/', '$1', $wp_version)) ? 5 : 1;
+			
+			// convert stacktrace to HTML for output
+			$clipTraceHtml = '<ol class=debug_stacktrace>';
+			for ($clipTraceIndex = $clipTraceIndexBegin; $clipTraceIndex < count($clipBacktrace); $clipTraceIndex++) {
+				$clipTraceHtml .= "\n\t" . '<li>' . @$clipBacktrace[$clipTraceIndex]['class'];
+				$clipTraceHtml .= @$clipBacktrace[$clipTraceIndex]['type'];
+				$clipTraceHtml .= @$clipBacktrace[$clipTraceIndex]['method'] ? $clipBacktrace['method'] : $clipBacktrace[$clipTraceIndex]['function'];
+				if (array_key_exists('file', $clipBacktrace[$clipTraceIndex - 1]) || array_key_exists('line', $clipBacktrace[$clipTraceIndex - 1])) {
+					$clipTraceHtml .= ' (' . $clipBacktrace[$clipTraceIndex - 1]['file'];
+					$clipTraceHtml .= ':' . $clipBacktrace[$clipTraceIndex - 1]['line'] . ')';
+				}
+				$clipTraceHtml .= '</li>';
+			}
+			$clipTraceHtml .= "\n" . '</ol>';
+			echo $clipTraceHtml;
+		}
+		return $trigger_error;
+	}
+	
+	// high order for this filter so that earlier-called plug-ins may disable the error message by passing FALSE as $trigger_error
+	add_filter('deprecated_function_trigger_error', 'SB_stacktrace_on_deprecated_function', 20);
+}
 
 ?>
