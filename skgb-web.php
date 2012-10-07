@@ -100,6 +100,8 @@ function SB_wp_disable_rich_editor ( $user_id ) {
 add_action('personal_options_update', 'SB_wp_disable_rich_editor');
 add_action('edit_user_profile_update', 'SB_wp_disable_rich_editor');
 
+// the option is only disabled in the GUI if the user views her own profile, not if she views other user's profiles; however, even if the option is enabled, changing it won't have any effect
+
 
 
 /*
