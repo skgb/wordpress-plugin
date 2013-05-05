@@ -161,7 +161,7 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 			// print a stacktrace
 			// (it's impossible to find the culprit without one; that WP doesn't handle this by itself is disgraceful I think)
 			
-			// prepare stacktrace (the PHP default is hardly unusable; another disgrace)
+			// prepare stacktrace (the PHP default is hardly usable; another disgrace)
 			$clipBacktrace = debug_backtrace();
 			$clipBacktrace[] = array('function' => '&lt;init>');
 			array_unshift($clipBacktrace, array('function' => __FUNCTION__, 'file' => __FILE__, 'line' => __LINE__));
