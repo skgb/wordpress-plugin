@@ -10,10 +10,12 @@
 Plugin Name: SKGB-Web Plugin
 Description: Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 Author: Arne Johannessen, SKGB
-Version: 0.3.2
+Version: 0.4
 P_lugin URI: http://www.skgb.de/
 A_uthor URI: http://www.skgb.de/
 */
+
+// automatic updating isn't possible -- wp-includes/update.php#wp_update_plugins hard-codes the plugin update service to api.wordpress.org
 
 // made for Wordpress 2.8.4
 
@@ -75,7 +77,7 @@ add_filter('the_excerpt', 'SB_highlight_searchterms');
 // used Dashboard code example 'dashboard-google-pagerank' by Weston Deboer
 function SB_wp_dashboard_test() {
 	echo '<P>Die Textbearbeitung erfolgt in <A HREF="http://de.wikipedia.org/wiki/Markdown#Auszeichnungsbeispiele">Markdown</A>-Syntax (<A HREF="http://daringfireball.net/projects/markdown/syntax" HREFLANG="en">Referenz</A>).';
-	echo '<P>→ <A HREF="//intern.skgb.de/digest/">SKGB-intern Hauptmenü</A>';
+	echo '<P>→ <A HREF="//intern.skgb.de/">SKGB-intern Hauptmenü</A>';
 //	echo "<PRE>\n\n";
 //	print_r(wp_upload_dir());
 //	echo "</PRE>";
@@ -191,5 +193,18 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 	// high order for this filter so that earlier-called plug-ins may disable the error message by passing FALSE as $trigger_error
 	add_filter('deprecated_function_trigger_error', 'SB_stacktrace_on_deprecated_function', 20);
 }
+
+
+function SB_secure_http_links( $content ) {
+	// avoid protocol-specific links to own site in database
+	// (URLs, denen ein "<" vorangestellt ist, könnten Teil eines Markdown-Autolinks sein und dürfen nicht verändert werden.)
+	$content = preg_replace('{(^|[^<])https?://www\.skgb\.de/}', '$1/', $content);
+	// avoid frequent mis-spellings of the ligature letter "IJ"
+	$content = preg_replace('{(\W)Ij(ssel|lst)}', '$1IJ$2', $content);
+	// auto-highlight names of club boats (untested)
+//	$content = preg_replace('{([^>])(Vayu|Papillon)}', '$1<i class=bootsname>$2</i>', $content);
+	return $content;
+}
+add_filter('content_save_pre', 'SB_secure_http_links');
 
 ?>
