@@ -19,6 +19,9 @@ Eigentlich braucht man nur die Dateien zu kopieren. Es ist zu beachten, dass die
 
 == Changelog ==
 
+= 0.4.1 =
+* No autocorrect for absolute links after ":" or "="
+
 = 0.4 =
 * Autocorrect absolute links to own site to site-relative links on save
 * Autocorrect "Ij" to "IJ"

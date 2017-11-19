@@ -198,7 +198,8 @@ if (defined('WP_DEBUG') && WP_DEBUG) {
 function SB_secure_http_links( $content ) {
 	// avoid protocol-specific links to own site in database
 	// (URLs, denen ein "<" vorangestellt ist, könnten Teil eines Markdown-Autolinks sein und dürfen nicht verändert werden.)
-	$content = preg_replace('{(^|[^<])https?://www\.skgb\.de/}', '$1/', $content);
+	// (URLs, denen ein ":" oder "=" vorangestellt ist, könnten Teil eines Query Parameters sein und dürfen nicht verändert werden.)
+	$content = preg_replace('{(^|[^<=:])https?://www\.skgb\.de/}', '$1/', $content);
 	// avoid frequent mis-spellings of the ligature letter "IJ"
 	$content = preg_replace('{(\W)Ij(ssel|lst)}', '$1IJ$2', $content);
 	// auto-highlight names of club boats (untested)
