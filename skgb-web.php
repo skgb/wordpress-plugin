@@ -1,9 +1,10 @@
 <?php
 /*
- * $Id$
  * Copyright (c) 2009 Segel- und Kanugemeinschaft Brucher Talsperre e. V. SKGB
- * Proprietary/Confidential. All Rights Reserved.
- * UTF-8
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version. See LICENSE for details.
  */
 
 /*
@@ -11,8 +12,8 @@ Plugin Name: SKGB-Web Plugin
 Description: Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 Author: Arne Johannessen, SKGB
 Version: 0.4
-P_lugin URI: http://www.skgb.de/
-A_uthor URI: http://www.skgb.de/
+Plugin URI: https://github.com/skgb/wordpress-plugin
+Author URI: https://github.com/johannessen
 */
 
 // automatic updating isn't possible -- wp-includes/update.php#wp_update_plugins hard-codes the plugin update service to api.wordpress.org
