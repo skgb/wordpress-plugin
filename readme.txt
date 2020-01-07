@@ -19,6 +19,9 @@ Eigentlich braucht man nur die Dateien zu kopieren. Es ist zu beachten, dass die
 
 == Changelog ==
 
+= 0.5 =
+* Offer read access to server config files
+
 = 0.4.1 =
 * No autocorrect for absolute links after ":" or "="
 

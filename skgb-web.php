@@ -11,7 +11,7 @@
 Plugin Name: SKGB-Web Plugin
 Description: Dieses Plugin implementiert verschiedene Details des SKGB-Web.
 Author: Arne Johannessen, SKGB
-Version: 0.4
+Version: 0.5
 Plugin URI: https://github.com/skgb/wordpress-plugin
 Author URI: https://github.com/johannessen
 */
@@ -79,6 +79,7 @@ add_filter('the_excerpt', 'SB_highlight_searchterms');
 function SB_wp_dashboard_test() {
 	echo '<P>Die Textbearbeitung erfolgt in <A HREF="http://de.wikipedia.org/wiki/Markdown#Auszeichnungsbeispiele">Markdown</A>-Syntax (<A HREF="http://daringfireball.net/projects/markdown/syntax" HREFLANG="en">Referenz</A>).';
 	echo '<P>→ <A HREF="//intern.skgb.de/">SKGB-intern Hauptmenü</A>';
+	echo '<P>→ <A HREF="/wp-admin/tools.php?page=skgb_server_conf">Server-Konfiguration</A>';
 //	echo "<PRE>\n\n";
 //	print_r(wp_upload_dir());
 //	echo "</PRE>";
@@ -208,5 +209,46 @@ function SB_secure_http_links( $content ) {
 	return $content;
 }
 add_filter('content_save_pre', 'SB_secure_http_links');
+
+
+# offer config files to user
+function SB_server_conf_menu_setup () {
+	add_management_page( 'SKGB: Server-Konfiguration', 'Server-Konfig', 'manage_options', 'skgb_server_conf', 'SB_server_conf_menu' );
+}
+function SB_server_conf_menu () {
+	$settings = wp_enqueue_code_editor( array(
+		'type' => 'text/nginx',
+		'codemirror' => array('readOnly'=>'nocursor') )
+	);
+	if ( FALSE !== $settings ) {
+		$settings = wp_json_encode( $settings );
+		wp_add_inline_script( 'code-editor', sprintf('wp.codeEditor.initialize( "skgb-aliases", %s );', $settings) );
+		wp_add_inline_script( 'code-editor', sprintf('wp.codeEditor.initialize( "skgb-siteconf", %s );', $settings) );
+		wp_add_inline_script( 'code-editor', sprintf('wp.codeEditor.initialize( "skgb-siteinclude", %s );', $settings) );
+		wp_add_inline_script( 'code-editor', sprintf('wp.codeEditor.initialize( "skgb-htaccess", %s );', $settings) );
+	}
+	?>
+	<h2>SKGB: Server-Konfiguration</h2>
+	<p>Im Folgenden werden die Inhalte einiger wichtiger Konfigurationsdateien für den SKGB-Server <code><?php echo php_uname('n'); ?></code> gezeigt. Bei Änderungswünschen bitte Kontakt mit dem IT-Ausschuss aufnehmen.
+	<p title='/etc/postfix/virtual'>Aliase im E-Mail–Server:
+	<p><textarea id=skgb-aliases rows=15 cols=30><?php
+	echo htmlspecialchars(file_get_contents('/etc/postfix/virtual'));
+	?></textarea>
+	<p title='/etc/apache2/sites-available/www.conf'>Apache VirtualHost <code>www.conf</code>:
+	<p><textarea id=skgb-siteconf rows=15 cols=30><?php
+	echo htmlspecialchars(file_get_contents('/etc/apache2/sites-available/www.conf'));
+	?></textarea>
+	<p title='/etc/apache2/sites-available/www.include'>Apache VirtualHost <code>www.include</code>:
+	<p><textarea id=skgb-siteinclude rows=15 cols=30><?php
+	echo htmlspecialchars(file_get_contents('/etc/apache2/sites-available/www.include'));
+	?></textarea>
+	<p title='<?php echo $_SERVER['DOCUMENT_ROOT'] . '/.htaccess'; ?>'>Apache directory <code>.htaccess</code>:
+	<p><textarea id=skgb-htaccess rows=15 cols=30><?php
+	echo htmlspecialchars(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/.htaccess'));
+	?></textarea>
+	<?php
+}
+add_action('admin_menu', 'SB_server_conf_menu_setup');
+
 
 ?>
