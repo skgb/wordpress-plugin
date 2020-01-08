@@ -232,20 +232,20 @@ function SB_server_conf_menu () {
 	?>
 	<h2>SKGB: Server-Konfiguration</h2>
 	<p>Im Folgenden werden die Inhalte einiger wichtiger Konfigurationsdateien für den SKGB-Server <code><?php echo php_uname('n'); ?></code> gezeigt. Bei Änderungswünschen bitte Kontakt mit dem IT-Ausschuss aufnehmen.
-	<p title='/etc/postfix/virtual'>Aliase im E-Mail–Server:
-	<p><textarea id=skgb-aliases rows=15 cols=30><?php
+	<p title='/etc/postfix/virtual'>Aliase im E-Mail–Server (<code>virtual</code> – letzter Reload war <?php echo date("Y-m-d", filemtime('/etc/postfix/virtual.db')) ?>):
+	<p><textarea id=skgb-aliases rows=15 cols=60><?php
 	echo htmlspecialchars(file_get_contents('/etc/postfix/virtual'));
 	?></textarea>
 	<p title='/etc/apache2/sites-available/www.conf'>Apache VirtualHost <code>www.conf</code>:
-	<p><textarea id=skgb-siteconf rows=15 cols=30><?php
+	<p><textarea id=skgb-siteconf rows=15 cols=60><?php
 	echo htmlspecialchars(file_get_contents('/etc/apache2/sites-available/www.conf'));
 	?></textarea>
 	<p title='/etc/apache2/sites-available/www.include'>Apache VirtualHost <code>www.include</code>:
-	<p><textarea id=skgb-siteinclude rows=15 cols=30><?php
+	<p><textarea id=skgb-siteinclude rows=15 cols=60><?php
 	echo htmlspecialchars(file_get_contents('/etc/apache2/sites-available/www.include'));
 	?></textarea>
 	<p title='<?php echo $_SERVER['DOCUMENT_ROOT'] . '/.htaccess'; ?>'>Apache directory <code>.htaccess</code>:
-	<p><textarea id=skgb-htaccess rows=15 cols=30><?php
+	<p><textarea id=skgb-htaccess rows=15 cols=60><?php
 	echo htmlspecialchars(file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/.htaccess'));
 	?></textarea>
 	<?php
