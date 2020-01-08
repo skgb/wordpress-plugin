@@ -79,7 +79,9 @@ add_filter('the_excerpt', 'SB_highlight_searchterms');
 function SB_wp_dashboard_test() {
 	echo '<P>Die Textbearbeitung erfolgt in <A HREF="http://de.wikipedia.org/wiki/Markdown#Auszeichnungsbeispiele">Markdown</A>-Syntax (<A HREF="http://daringfireball.net/projects/markdown/syntax" HREFLANG="en">Referenz</A>).';
 	echo '<P>→ <A HREF="//intern.skgb.de/">SKGB-intern Hauptmenü</A>';
-	echo '<P>→ <A HREF="/wp-admin/tools.php?page=skgb_server_conf">Server-Konfiguration</A>';
+	if (current_user_can('unfiltered_html')) {
+		echo '<P>→ <A HREF="/wp-admin/tools.php?page=skgb_server_conf">Server-Konfiguration</A>';
+	}
 //	echo "<PRE>\n\n";
 //	print_r(wp_upload_dir());
 //	echo "</PRE>";
@@ -213,7 +215,7 @@ add_filter('content_save_pre', 'SB_secure_http_links');
 
 # offer config files to user
 function SB_server_conf_menu_setup () {
-	add_management_page( 'SKGB: Server-Konfiguration', 'Server-Konfig', 'manage_options', 'skgb_server_conf', 'SB_server_conf_menu' );
+	add_management_page( 'SKGB: Server-Konfiguration', 'Server-Konfig', 'unfiltered_html', 'skgb_server_conf', 'SB_server_conf_menu' );
 }
 function SB_server_conf_menu () {
 	$settings = wp_enqueue_code_editor( array(
